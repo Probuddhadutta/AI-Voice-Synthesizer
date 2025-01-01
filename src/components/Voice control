@@ -1,0 +1,81 @@
+import React from 'react';
+import { Volume2, Mic, Settings2 } from 'lucide-react';
+
+interface VoiceControlsProps {
+  pitch: number;
+  speed: number;
+  volume: number;
+  onPitchChange: (value: number) => void;
+  onSpeedChange: (value: number) => void;
+  onVolumeChange: (value: number) => void;
+}
+
+export function VoiceControls({
+  pitch,
+  speed,
+  volume,
+  onPitchChange,
+  onSpeedChange,
+  onVolumeChange
+}: VoiceControlsProps) {
+  return (
+    <div className="space-y-4 bg-white/50 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+            <Mic className="w-4 h-4" />
+            Pitch
+          </label>
+          <span className="text-sm text-gray-500">{pitch.toFixed(1)}</span>
+        </div>
+        <input
+          type="range"
+          min="0.5"
+          max="2"
+          step="0.1"
+          value={pitch}
+          onChange={(e) => onPitchChange(parseFloat(e.target.value))}
+          className="w-full accent-indigo-600"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+            <Settings2 className="w-4 h-4" />
+            Speed
+          </label>
+          <span className="text-sm text-gray-500">{speed.toFixed(1)}x</span>
+        </div>
+        <input
+          type="range"
+          min="0.5"
+          max="2"
+          step="0.1"
+          value={speed}
+          onChange={(e) => onSpeedChange(parseFloat(e.target.value))}
+          className="w-full accent-indigo-600"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+            <Volume2 className="w-4 h-4" />
+            Volume
+          </label>
+          <span className="text-sm text-gray-500">{(volume * 100).toFixed(0)}%</span>
+        </div>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.1"
+          value={volume}
+          onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
+          className="w-full accent-indigo-600"
+        />
+      </div>
+    </div>
+  );
+} 
